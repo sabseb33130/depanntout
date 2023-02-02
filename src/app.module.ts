@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config/dist';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 import { Reservation } from './reservation/entities/reservation.entity';
 import { ReservationModule } from './reservation/reservation.module';
 import { Service } from './services/entities/service.entity';
@@ -28,6 +29,7 @@ import { UsersModule } from './users/users.module';
         ReservationModule,
         ServicesModule,
         UsersModule,
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [AppService],
