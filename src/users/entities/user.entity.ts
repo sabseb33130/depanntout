@@ -1,1 +1,31 @@
-export class User {}
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+@Entity()
+export class User extends BaseEntity {
+    @PrimaryGeneratedColumn({ type: 'integer' })
+    id: number;
+
+    @Column({ type: 'varchar' })
+    username: string;
+
+    @Column({ type: 'varchar' })
+    mail: string;
+
+    @Column({ type: 'varchar' })
+    password: string;
+
+    @Column({ type: 'varchar' })
+    adress_line1: string;
+    @Column({ type: 'varchar', default: '' })
+    adress_line2: string;
+
+    @Column({ type: 'varchar', default: '' })
+    adress_line3: string;
+
+    @Column({ type: 'varchar' })
+    zipCode: string;
+
+    @Column({ type: 'varchar' })
+    city: string;
+}

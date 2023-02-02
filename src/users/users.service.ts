@@ -1,26 +1,43 @@
 import { Injectable } from '@nestjs/common';
+import { userInfo } from 'os';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
-  }
+    async create(createUserDto: CreateUserDto) {
+        const user = new User();
+        user.username = createUserDto.username;
+        user.mail = createUserDto.mail;
+        user.password = createUserDto.password;
+        user.adress_line1 = createUserDto.adress_line1;
+        user.adress_line2 = createUserDto.adress_line2;
+        user.adress_line3 = createUserDto.adress_line3;
+        user.zipCode = createUserDto.zipCode;
+        user.city = createUserDto.city;
+        await User.save(user);
+        return user;
+    }
 
-  findAll() {
-    return `This action returns all users`;
-  }
+    findAll() {
+        return User.find();
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+    findOne(id: number) {
+        const oneUser = User.findBy({ id: id });
+        return oneUser;
+    }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
+    async update(id: number, updateUserDto: UpdateUserDto) {
+        await User.update(id, updateUserDto);
+        const updateUser = User.findOneBy({ id: id });
+        return updateUser;
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
+    async remove(id: number) {
+        const deleteUser = await User.findOneBy({ id: id });
+        User.remove(deleteUser);
+        return deleteUser;
+    }
 }
