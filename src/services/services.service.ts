@@ -1,26 +1,48 @@
-import { Injectable } from '@nestjs/common';
-import { CreateServiceDto } from './dto/create-service.dto';
-import { UpdateServiceDto } from './dto/update-service.dto';
+import { Injectable } from "@nestjs/common";
+import { CreateServiceDto } from "./dto/create-service.dto";
+import { UpdateServiceDto } from "./dto/update-service.dto";
+import { Service } from "./entities/service.entity";
 
 @Injectable()
 export class ServicesService {
   create(createServiceDto: CreateServiceDto) {
-    return 'This action adds a new service';
+    const newService = new Service();
+    newService.name = createServiceDto.name;
+    newService.price = createServiceDto.price;
+    newService.city = createServiceDto.city;
+    newService.start_time = createServiceDto.start_time;
+    newService.end_time = createServiceDto.end_time;
+    newService.save();
+    return newService;
   }
 
   findAll() {
-    return `This action returns all services`;
+    return Service.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} service`;
+    return Service.findBy({ id: id });
   }
 
-  update(id: number, updateServiceDto: UpdateServiceDto) {
-    return `This action updates a #${id} service`;
+  async update(id: number, updateServiceDto: UpdateServiceDto) {
+    const newService = await Service.findOneBy({ id: id });
+
+    newService.name = updateServiceDto.name;
+    newService.price = updateServiceDto.price;
+    newService.city = updateServiceDto.city;
+    newService.start_time = updateServiceDto.start_time;
+    newService.end_time = updateServiceDto.end_time;
+    newService.reserved = updateServiceDto.reserved;
+
+    const serviceChanged = await Service.save(newService);
+    return serviceChanged;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} service`;
+  async remove(id: number) {
+    const idService = await Service.findOneBy({ id: id });
+    idService.id = id;
+
+    const ServiceSupp = await Service.remove(idService);
+    return ServiceSupp;
   }
 }
