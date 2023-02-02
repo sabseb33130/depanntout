@@ -25,24 +25,18 @@ export class ServicesService {
   }
 
   async update(id: number, updateServiceDto: UpdateServiceDto) {
-    const newService = await Service.findOneBy({ id: id });
-
-    newService.name = updateServiceDto.name;
-    newService.price = updateServiceDto.price;
-    newService.city = updateServiceDto.city;
-    newService.start_time = updateServiceDto.start_time;
-    newService.end_time = updateServiceDto.end_time;
-    newService.reserved = updateServiceDto.reserved;
-
-    const serviceChanged = await Service.save(newService);
-    return serviceChanged;
+    await Service.update(id, updateServiceDto);
+    const serviceChanged = Service.findBy({ id: id });
+    if (serviceChanged) {
+      return serviceChanged;
+    } else {
+      return undefined;
+    }
   }
 
   async remove(id: number) {
     const idService = await Service.findOneBy({ id: id });
-    idService.id = id;
-
-    const ServiceSupp = await Service.remove(idService);
-    return ServiceSupp;
+    await Service.remove(idService);
+    return idService;
   }
 }
