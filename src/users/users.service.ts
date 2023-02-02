@@ -23,9 +23,13 @@ export class UsersService {
     findAll() {
         return User.find();
     }
+    async findByName(username: string) {
+        const oneUsername = await User.findBy({ username: username });
+        return oneUsername;
+    }
 
-    findOne(id: number) {
-        const oneUser = User.findBy({ id: id });
+    async findOne(id: number) {
+        const oneUser = await User.findBy({ id: id });
         return oneUser;
     }
 
