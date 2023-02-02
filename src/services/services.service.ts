@@ -24,6 +24,10 @@ export class ServicesService {
     return Service.findBy({ id: id });
   }
 
+  findByName(name: string) {
+    return Service.findBy({ name: name });
+  }
+
   async update(id: number, updateServiceDto: UpdateServiceDto) {
     await Service.update(id, updateServiceDto);
     const serviceChanged = Service.findBy({ id: id });

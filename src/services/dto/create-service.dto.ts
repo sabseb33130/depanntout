@@ -4,6 +4,7 @@ import {
   IsString,
   IsDate,
   IsOptional,
+  IsDateString,
 } from "class-validator";
 
 export class CreateServiceDto {
@@ -20,12 +21,12 @@ export class CreateServiceDto {
   city: string;
 
   @IsNotEmpty()
-  @IsDate()
+  @IsDateString()
   @IsOptional()
   start_time: Date;
 
   @IsNotEmpty()
-  @IsDate()
+  @IsDateString()
   @IsOptional()
   end_time: Date;
 }
