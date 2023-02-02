@@ -6,7 +6,7 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-    async create(createUserDto: CreateUserDto) {
+    async register(createUserDto: CreateUserDto) {
         const user = new User();
         user.username = createUserDto.username;
         user.mail = createUserDto.mail;
@@ -24,7 +24,7 @@ export class UsersService {
         return User.find();
     }
     async findByName(username: string) {
-        const oneUsername = await User.findBy({ username: username });
+        const oneUsername = await User.findOneBy({ username: username });
         return oneUsername;
     }
 

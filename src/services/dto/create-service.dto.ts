@@ -1,20 +1,10 @@
 import {
-<<<<<<< HEAD
-  IsNumber,
-  IsNotEmpty,
-  IsString,
-  IsDate,
-  IsOptional,
-  IsDateString,
-} from "class-validator";
-=======
     IsNumber,
     IsNotEmpty,
     IsString,
-    IsDate,
     IsOptional,
+    IsDateString,
 } from 'class-validator';
->>>>>>> b787694acd04fb12f0c49e6a0233f87baadb6081
 
 export class CreateServiceDto {
     @IsNotEmpty()
@@ -29,25 +19,13 @@ export class CreateServiceDto {
     @IsString()
     city: string;
 
-<<<<<<< HEAD
-  @IsNotEmpty()
-  @IsDateString()
-  @IsOptional()
-  start_time: Date;
-
-  @IsNotEmpty()
-  @IsDateString()
-  @IsOptional()
-  end_time: Date;
-=======
     @IsNotEmpty()
-    @IsDate()
+    @IsDateString()
     @IsOptional()
     start_time: Date;
 
     @IsNotEmpty()
-    @IsDate()
+    @IsDateString()
     @IsOptional()
     end_time: Date;
->>>>>>> b787694acd04fb12f0c49e6a0233f87baadb6081
 }
