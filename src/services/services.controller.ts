@@ -26,12 +26,12 @@ export class ServicesController {
   }
   @Get("name")
   async findByName(@Body("name") name: string) {
-    return await this.servicesService.findByName(name);
+    return await this.servicesService.findOneByName(name);
   }
 
   @Get(":id")
   async findOne(@Param("id") id: string) {
-    return await this.servicesService.findOne(+id);
+    return await this.servicesService.findOneId(+id);
   }
 
   @Patch(":id")

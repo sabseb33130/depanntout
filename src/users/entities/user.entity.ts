@@ -1,5 +1,14 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Service } from 'src/services/entities/service.entity';
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    JoinColumn,
+    OneToMany,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
+import { servicesVersion } from 'typescript';
 
 @Entity()
 export class User extends BaseEntity {
@@ -28,4 +37,7 @@ export class User extends BaseEntity {
 
     @Column({ type: 'varchar' })
     city: string;
+    @OneToMany(() => Service, (service) => service.id)
+    @JoinColumn()
+    service: Service[];
 }

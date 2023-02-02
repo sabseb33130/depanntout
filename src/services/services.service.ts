@@ -19,13 +19,12 @@ export class ServicesService {
   findAll() {
     return Service.find();
   }
-
-  findOne(id: number) {
-    return Service.findBy({ id: id });
+  async findOneByName(name: string) {
+    return await Service.findOneBy({ name: name });
   }
 
-  findByName(name: string) {
-    return Service.findBy({ name: name });
+  findOneId(id: number) {
+    return Service.findBy({ id: id });
   }
 
   async update(id: number, updateServiceDto: UpdateServiceDto) {
