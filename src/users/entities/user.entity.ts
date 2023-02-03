@@ -1,6 +1,5 @@
 import { Service } from "src/services/entities/service.entity";
 import {
-<<<<<<< HEAD
   BaseEntity,
   Column,
   Entity,
@@ -12,19 +11,6 @@ import {
 
 @Entity()
 //@Unique(["mail"])
-=======
-    BaseEntity,
-    Column,
-    Entity,
-    JoinColumn,
-    OneToMany,
-    PrimaryGeneratedColumn,
-    Unique,
-} from 'typeorm';
-
-@Entity()
-@Unique(['mail'])
->>>>>>> e31e5f2f0b785fe406ed56be260d56a80403ac9c
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn({ type: "integer" })
   id: number;
