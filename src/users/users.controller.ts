@@ -7,28 +7,45 @@ import {
     Param,
     Delete,
     Res,
-    ParseIntPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Response } from 'express';
+import { User } from './entities/user.entity';
 
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     @Post()
-    create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
+    async create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
+        const verifPass = await User.findOneBy({ mail: createUserDto.mail });
         const comparePass =
             createUserDto.password === createUserDto.confirmPassword;
-        if (comparePass) {
-            return this.usersService.register(createUserDto);
+
+        if (verifPass) {
+            res.status(401).json({
+                status: '404',
+                message: 'This client is existing !!',
+            });
+            return;
         }
-        return res.status(401).json({
-            status: '401',
-            message:
-                'The password confirmation is not the same as the password !!',
+
+        if (!comparePass) {
+            res.status(401).json({
+                status: '401',
+                message:
+                    'The password confirmation is not the same as the password !!',
+            });
+            return;
+        }
+        this.usersService.register(createUserDto);
+
+        res.status(201).json({
+            status: '201',
+            message: 'Success',
+            data: createUserDto,
         });
     }
 
@@ -38,7 +55,7 @@ export class UsersController {
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: number) {
+    findOne(@Param('id') id: string) {
         return this.usersService.findOne(+id);
     }
 
