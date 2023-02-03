@@ -8,7 +8,6 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { servicesVersion } from 'typescript';
 
 @Entity()
 export class User extends BaseEntity {
