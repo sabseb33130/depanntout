@@ -1,4 +1,5 @@
 import {
+<<<<<<< HEAD
   Controller,
   Get,
   Post,
@@ -12,6 +13,20 @@ import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { Response } from "express";
+=======
+    Controller,
+    Get,
+    Post,
+    Body,
+    Patch,
+    Param,
+    Delete,
+    ParseIntPipe,
+} from '@nestjs/common';
+import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+>>>>>>> e31e5f2f0b785fe406ed56be260d56a80403ac9c
 
 @Controller("users")
 export class UsersController {
@@ -35,10 +50,17 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+<<<<<<< HEAD
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.usersService.findOne(+id);
   }
+=======
+    @Get(':id')
+    findOne(@Param('id', ParseIntPipe) id: number) {
+        return this.usersService.findOne(+id);
+    }
+>>>>>>> e31e5f2f0b785fe406ed56be260d56a80403ac9c
 
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
