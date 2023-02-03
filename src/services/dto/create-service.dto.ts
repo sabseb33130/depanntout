@@ -21,11 +21,9 @@ export class CreateServiceDto {
 
   @IsNotEmpty()
   @IsDateString()
-  @IsOptional()
   start_time: Date;
 
   @IsNotEmpty()
   @IsDateString()
-  @IsOptional()
   end_time: Date;
 }
