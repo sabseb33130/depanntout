@@ -7,9 +7,11 @@ import {
     JoinColumn,
     OneToMany,
     PrimaryGeneratedColumn,
+    Unique,
 } from 'typeorm';
 
 @Entity()
+@Unique(['mail'])
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn({ type: 'integer' })
     id: number;
