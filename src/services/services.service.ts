@@ -1,5 +1,5 @@
 import { Injectable, Res } from '@nestjs/common';
-import { Response } from 'express';
+import { response } from 'express';
 import { User } from 'src/users/entities/user.entity';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
@@ -18,15 +18,25 @@ export class ServicesService {
         return newService;
     }
 
-    findAll() {
-        return Service.find();
+    async findAll() {
+        const serviceUser = await Service.find();
+        return serviceUser;
     }
     async findOneByName(name: string) {
-        return await Service.findOneBy({ name: name });
+        const findService = await Service.findOneBy({ name: name });
+        if (!findService) {
+            return 'Le service recherché n existe pas';
+        } else {
+            return findService;
+        }
     }
-
     async findOneId(id: number) {
-        return await Service.findBy({ id: id });
+        const serviceId = await Service.findBy({ id: id });
+        if (!serviceId) {
+            return 'Le service recherché n existe pas';
+        } else {
+            return serviceId;
+        }
     }
 
     async update(id: number, updateServiceDto: UpdateServiceDto) {
@@ -48,6 +58,9 @@ export class ServicesService {
 
     async remove(id: number) {
         const idService = await Service.findOneBy({ id: id });
+        if (!idService) {
+            return 'Le service recherché n existe pas';
+        }
         await Service.remove(idService);
         return idService;
     }

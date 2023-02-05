@@ -32,11 +32,6 @@ export class Service extends BaseEntity {
 
     @Column({ type: 'boolean', default: false })
     reserved: boolean;
-    @ManyToOne(() => User, (user) => user.mail, {
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-        eager: true,
-    })
-    @JoinColumn({ name: 'mail', referencedColumnName: 'mail' })
-    user: string;
+    @ManyToOne(() => User, (user) => user.id, { eager: true })
+    user: number;
 }

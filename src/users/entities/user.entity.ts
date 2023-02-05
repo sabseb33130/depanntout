@@ -21,6 +21,7 @@ export class User extends BaseEntity {
 
     @Column({ type: 'varchar', nullable: false })
     mail: string;
+
     @Exclude({ toPlainOnly: true })
     @Column({ type: 'varchar', select: false })
     password: string;
@@ -38,4 +39,7 @@ export class User extends BaseEntity {
 
     @Column({ type: 'varchar' })
     city: string;
+    @OneToMany(() => Service, (service) => service.user)
+    @JoinColumn()
+    user: number;
 }

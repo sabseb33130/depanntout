@@ -12,8 +12,6 @@ import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Res } from '@nestjs/common/decorators';
-import { Exclude } from 'class-transformer';
 
 @Controller('services')
 export class ServicesController {
