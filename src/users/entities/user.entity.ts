@@ -6,18 +6,19 @@ import {
     JoinColumn,
     OneToMany,
     PrimaryGeneratedColumn,
+    Unique,
 } from 'typeorm';
 
 @Entity()
-//@Unique(["mail"])
+@Unique(['mail'])
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn({ type: 'integer' })
     id: number;
 
-    @Column({ type: 'varchar' })
+    @Column({ type: 'varchar', nullable: false })
     username: string;
 
-    @Column({ type: 'varchar' })
+    @Column({ type: 'varchar', nullable: false })
     mail: string;
 
     @Column({ type: 'varchar' })
@@ -36,7 +37,7 @@ export class User extends BaseEntity {
 
     @Column({ type: 'varchar' })
     city: string;
-    @OneToMany(() => Service, (service) => service.id)
+    @OneToMany(() => Service, (service) => service.username)
     @JoinColumn()
     service: Service[];
 }

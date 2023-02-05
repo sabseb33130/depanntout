@@ -17,11 +17,11 @@ export class Reservation extends BaseEntity {
     id: number;
     @Column({ type: 'integer' })
     numero: number;
-    @OneToOne(() => Service, (service) => service.id)
-    @JoinColumn()
-    service: Service;
+    @OneToOne(() => Service, (service) => service.name)
+    @JoinColumn({ referencedColumnName: 'name' })
+    name: string;
 
-    @ManyToOne(() => User, (user) => user.id)
-    @JoinColumn()
-    user: User[];
+    @ManyToOne(() => User, (user) => user.mail, { eager: true })
+    @JoinColumn({ referencedColumnName: 'mail' })
+    username: string;
 }

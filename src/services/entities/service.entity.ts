@@ -5,9 +5,12 @@ import {
     JoinColumn,
     ManyToOne,
     PrimaryGeneratedColumn,
+    Unique,
 } from 'typeorm';
 import { BaseEntity } from 'typeorm/repository/BaseEntity';
+
 @Entity()
+@Unique(['name'])
 export class Service extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
@@ -29,7 +32,7 @@ export class Service extends BaseEntity {
 
     @Column({ type: 'boolean', default: false })
     reserved: boolean;
-    @ManyToOne(() => User, (user) => user.id)
-    @JoinColumn()
-    user: User[];
+    @ManyToOne(() => User, (user) => user.mail, { eager: true })
+    @JoinColumn({ referencedColumnName: 'mail' })
+    username: string;
 }

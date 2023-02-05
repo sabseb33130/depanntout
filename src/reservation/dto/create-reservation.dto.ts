@@ -8,9 +8,9 @@ export class CreateReservationDto {
     @IsNumber()
     numero: number;
     @IsNotEmpty()
-    @IsNumber()
-    service: number;
+    @IsString()
+    service: string;
     @IsNotEmpty()
-    @IsNumber()
-    user: number;
+    @IsString()
+    user: string;
 }
