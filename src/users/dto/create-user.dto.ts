@@ -1,3 +1,4 @@
+import {Exclude} from "class-transformer";
 import {
   Equals,
   IsEmail,
@@ -19,10 +20,12 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
+ 
   password: string;
 
   @IsNotEmpty()
   @IsString()
+
   confirmPassword: string;
 
   @IsNotEmpty()

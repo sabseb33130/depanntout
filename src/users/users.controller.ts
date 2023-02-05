@@ -15,6 +15,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Response } from 'express';
 import { User } from './entities/user.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Exclude } from 'class-transformer';
 
 @Controller('users')
 export class UsersController {
@@ -57,6 +58,7 @@ export class UsersController {
     }
     @UseGuards(JwtAuthGuard)
     @Get(':id')
+
     findOne(@Param('id') id: string) {
         return this.usersService.findOne(+id);
     }
@@ -66,6 +68,7 @@ export class UsersController {
         return this.usersService.update(+id, updateUserDto);
     }
     @UseGuards(JwtAuthGuard)
+   
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.usersService.remove(+id);

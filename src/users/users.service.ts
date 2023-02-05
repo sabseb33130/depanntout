@@ -24,6 +24,7 @@ export class UsersService {
     }
     async findByName(username: string) {
         const oneUsername = await User.findOneBy({ username: username });
+
         return oneUsername;
     }
     async findByMail(mail: string) {

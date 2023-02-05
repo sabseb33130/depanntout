@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
+import { Injectable, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { User } from 'src/users/entities/user.entity';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
@@ -25,17 +25,24 @@ export class ServicesService {
         return await Service.findOneBy({ name: name });
     }
 
-    findOneId(id: number) {
-        return Service.findBy({ id: id });
+    async findOneId(id: number) {
+        return await Service.findBy({ id: id });
     }
 
     async update(id: number, updateServiceDto: UpdateServiceDto) {
-        await Service.update(id, updateServiceDto);
-        const serviceChanged = Service.findBy({ id: id });
-        if (serviceChanged) {
-            return serviceChanged;
+        const serviceChanged = await Service.findBy({ id: id });
+        console.log(serviceChanged[0]);
+        console.log(updateServiceDto);
+
+        if (updateServiceDto.reserved == serviceChanged[0].reserved) {
+            return 'pas de réservation faites';
         } else {
-            return undefined;
+            await Service.update(id, updateServiceDto);
+            if (serviceChanged) {
+                return serviceChanged;
+            } else {
+                return undefined;
+            }
         }
     }
 

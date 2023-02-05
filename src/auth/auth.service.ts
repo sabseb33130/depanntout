@@ -16,6 +16,7 @@ export class AuthService {
 
         if (user && verifpassword) {
             const { password, ...result } = user;
+            console.log(user);
 
             return result;
         }

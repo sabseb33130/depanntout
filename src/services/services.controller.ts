@@ -12,6 +12,8 @@ import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Res } from '@nestjs/common/decorators';
+import { Exclude } from 'class-transformer';
 
 @Controller('services')
 export class ServicesController {
@@ -27,9 +29,11 @@ export class ServicesController {
         return await this.servicesService.findAll();
     }
     @UseGuards(JwtAuthGuard)
-    @Get('name')
+    @Get(':name')
     async findByName(@Body('name') name: string) {
-        return await this.servicesService.findOneByName(name);
+        const rechName = await this.servicesService.findOneByName(name);
+
+        return rechName;
     }
     @UseGuards(JwtAuthGuard)
     @Get(':id')

@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Service } from 'src/services/entities/service.entity';
 import {
     BaseEntity,
@@ -20,8 +21,8 @@ export class User extends BaseEntity {
 
     @Column({ type: 'varchar', nullable: false })
     mail: string;
-
-    @Column({ type: 'varchar' })
+    @Exclude({ toPlainOnly: true })
+    @Column({ type: 'varchar', select: false })
     password: string;
 
     @Column({ type: 'varchar' })
@@ -37,7 +38,4 @@ export class User extends BaseEntity {
 
     @Column({ type: 'varchar' })
     city: string;
-    @OneToMany(() => Service, (service) => service.username)
-    @JoinColumn()
-    service: Service[];
 }
