@@ -41,5 +41,5 @@ export class User extends BaseEntity {
     city: string;
     @OneToMany(() => Service, (service) => service.user)
     @JoinColumn()
-    user: number;
+    user: string;
 }

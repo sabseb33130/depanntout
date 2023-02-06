@@ -30,6 +30,11 @@ export class ServicesService {
             return findService;
         }
     }
+    async findOneByStartTime(start_time: Date) {
+        const findService = await Service.findOneBy({ start_time: start_time });
+        return findService;
+    }
+
     async findOneId(id: number) {
         const serviceId = await Service.findBy({ id: id });
         if (!serviceId) {

@@ -12,14 +12,22 @@ import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Service } from './entities/service.entity';
 
 @Controller('services')
 export class ServicesController {
     constructor(private readonly servicesService: ServicesService) {}
     @UseGuards(JwtAuthGuard)
     @Post()
-    create(@Body() createServiceDto: CreateServiceDto) {
-        return this.servicesService.create(createServiceDto);
+    async create(@Body() createServiceDto: CreateServiceDto) {
+        const verif = this.servicesService.findOneByStartTime(
+            createServiceDto.start_time,
+        );
+        if (verif) {
+            return 'Service déjà proposéé';
+        } else {
+            return this.servicesService.create(createServiceDto);
+        }
     }
     @UseGuards(JwtAuthGuard)
     @Get()
